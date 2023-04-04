@@ -19,7 +19,7 @@ public class PageRender<T> {
 		this.page = page;
 		this.paginas = new ArrayList<PageItem>();
 
-		numElementosPorPagina = 5;
+		numElementosPorPagina = 4;
 		totalPaginas = page.getTotalPages();
 		paginaActual = page.getNumber() + 1;
 
@@ -40,7 +40,7 @@ public class PageRender<T> {
 			}
 		}
 		for (int i = 0; i < hasta; i++) {
-			paginas.add(new PageItem(desde + i, paginaActual == desde + 1));
+			paginas.add(new PageItem(desde + i, paginaActual == desde + i));
 		}
 	}
 
@@ -74,6 +74,10 @@ public class PageRender<T> {
 
 	public void setPaginas(List<PageItem> paginas) {
 		this.paginas = paginas;
+	}
+	
+	public boolean isFirst() {
+		return page.isFirst();
 	}
 
 	public boolean isLast() {

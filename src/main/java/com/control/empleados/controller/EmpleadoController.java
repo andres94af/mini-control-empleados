@@ -18,12 +18,13 @@ public class EmpleadoController {
 
 	@Autowired
 	private IEmpleadoService empleadoService;
+
 	
 	@GetMapping({"/", "/listar", ""})
 	public String listarEmpleados(@RequestParam(name="page", defaultValue = "0") int page, Model modelo) {
 		Pageable pageRequest = PageRequest.of(page, 5);
 		Page<Empleado> empleados = empleadoService.findAll(pageRequest);
-		PageRender<Empleado> pageRender = new PageRender<>("/lista", empleados);
+		PageRender<Empleado> pageRender = new PageRender<>("/listar", empleados);
 		modelo.addAttribute("titulo", "Listado de empleados");
 		modelo.addAttribute("empleados", empleados);
 		modelo.addAttribute("page", pageRender);
