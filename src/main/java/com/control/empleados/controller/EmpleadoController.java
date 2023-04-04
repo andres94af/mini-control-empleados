@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.control.empleados.model.Empleado;
 import com.control.empleados.service.IEmpleadoService;
 import com.control.empleados.util.paginacion.PageRender;
+import com.control.empleados.util.reportes.EmpleadoExporterExcel;
 import com.control.empleados.util.reportes.EmpleadoExporterPDF;
 import com.lowagie.text.DocumentException;
 
@@ -119,6 +120,23 @@ public class EmpleadoController {
 		response.setHeader(cabecera, valor);
 		List<Empleado> empleados = empleadoService.findAll();
 		EmpleadoExporterPDF exporter = new EmpleadoExporterPDF(empleados);
+		try {
+			exporter.exportar(response);
+		} catch (DocumentException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@GetMapping("/exportarExcel")
+	private void expertarListadoEnExcel(HttpServletResponse response) {
+		response.setContentType("application/octet-stream");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm");
+		String fechaActual = dateFormat.format(new Date());
+		String cabecera = "Content-Disposition";
+		String valor = "attachment; filename=Empleados_"+fechaActual+".xlsx";
+		response.setHeader(cabecera, valor);
+		List<Empleado> empleados = empleadoService.findAll();
+		EmpleadoExporterExcel exporter = new EmpleadoExporterExcel(empleados);
 		try {
 			exporter.exportar(response);
 		} catch (DocumentException | IOException e) {
