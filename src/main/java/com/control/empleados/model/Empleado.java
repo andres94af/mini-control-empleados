@@ -42,7 +42,7 @@ public class Empleado {
 	
 	@NotNull
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fecha;
 
 	public Empleado() {
