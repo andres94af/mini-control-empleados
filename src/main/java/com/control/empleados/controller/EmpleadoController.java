@@ -37,7 +37,7 @@ public class EmpleadoController {
 			return "redirect:/listar";
 		}
 		modelo.put("empleado", empleado);
-		modelo.put("titulo", "Detalles del empleado"+empleado.getNombre());
+		modelo.put("titulo", "Detalles del empleado "+empleado.getNombre());
 		return "detalles_empleado";
 	}
 	
