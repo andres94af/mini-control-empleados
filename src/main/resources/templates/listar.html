@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="layout/layout :: head">
 <meta charset="utf-8">
 </head>
@@ -28,8 +28,8 @@
 							<th>Sexo</th>
 							<th>Salario</th>
 							<th>Detalles</th>
-							<th>Editar</th>
-							<th>Eliminar</th>
+							<th sec:authorize="hasRole('ADMIN')">Editar</th>
+							<th sec:authorize="hasRole('ADMIN')">Eliminar</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -43,8 +43,8 @@
 							<td th:text="${empleado.sexo}"></td>
 							<td th:text="${empleado.salario}"></td>
 							<td><a class="btn btn-info -bnt-sm" th:href="@{/ver/}+${empleado.id}">Ver detalles</a></td>
-							<td><a class="btn btn-warning -bnt-sm" th:href="@{/form/}+${empleado.id}">Editar</a></td>
-							<td><a class="btn btn-danger -bnt-sm" th:href="@{/eliminar/}+${empleado.id}" onclick="return confirm('Estas seguro de eliminar al empleado?');">Eliminar</a></td>
+							<td sec:authorize="hasRole('ADMIN')"><a class="btn btn-warning -bnt-sm" th:href="@{/form/}+${empleado.id}">Editar</a></td>
+							<td sec:authorize="hasRole('ADMIN')"><a class="btn btn-danger -bnt-sm" th:href="@{/eliminar/}+${empleado.id}" onclick="return confirm('Estas seguro de eliminar al empleado?');">Eliminar</a></td>
 						</tr>
 					</tbody>
 				</table>
